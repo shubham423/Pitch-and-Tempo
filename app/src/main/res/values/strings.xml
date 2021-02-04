@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Pitch and Tempo</string>
+
+    <string-array name="pitches">
+        <item>C</item>
+        <item>C#</item>
+        <item>D</item>
+        <item>D#</item>
+        <item>E</item>
+        <item>F</item>
+        <item>F#</item>
+        <item>F#</item>
+        <item>G</item>
+        <item>G#</item>
+    </string-array>
 </resources>

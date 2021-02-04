@@ -70,12 +70,14 @@
 
                 android:orientation="horizontal">
                 <Button
+                    android:id="@+id/pitchBtn"
                     android:layout_width="wrap_content"
                     android:layout_margin="4dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:text="PITCH"/>
                 <Button
+                    android:id="@+id/tempoBtn"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="4dp"

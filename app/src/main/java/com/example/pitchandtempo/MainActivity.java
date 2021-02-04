@@ -2,12 +2,17 @@ package com.example.pitchandtempo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +23,74 @@ public class MainActivity extends AppCompatActivity {
         AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
 
+        Button tempoBtn=findViewById(R.id.tempoBtn);
+        Button pitchBtn=findViewById(R.id.pitchBtn);
+
+        pitchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog=new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialog_pitch);
+                Spinner spinner=dialog.findViewById(R.id.pitchSpinner);
+                ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(MainActivity.this,R.array.pitches, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+
+                dialog.show();
+            }
+        });
+
+        tempoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Dialog dialog=new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.dialog_tempo);
+                SeekBar seekBar=dialog.findViewById(R.id.seekBar);
+                Button addBtn=dialog.findViewById(R.id.add);
+                Button minusBtn=dialog.findViewById(R.id.minus);
+                TextView value=dialog.findViewById(R.id.value);
+
+                seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                        value.setText(i+75+"/600");
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
+                addBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int index=seekBar.getProgress();
+                        for (int i=0;i<=1;i++){
+                            seekBar.setProgress(index+1);
+                        }
+                    }
+                });
+
+                minusBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int index=seekBar.getProgress();
+                        seekBar.setProgress(index-1);
+                    }
+                });
+
+                dialog.show();
+            }
+
+
+        });
         Button upButton = (Button) findViewById(R.id.upButton);
         upButton.setOnClickListener(new View.OnClickListener() {
 
@@ -38,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
     public void playmusic(View view) {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.teental_d);
         mp.start();
@@ -46,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
     public void tempoclick(View view) {
 
     }
+
+
 //        private void startPitchShifting()
 //    {
 //        double rate = 1.0;
